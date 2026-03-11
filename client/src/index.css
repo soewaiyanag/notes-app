@@ -1,1 +1,209 @@
 @import "tailwindcss";
+
+/* ============================================================
+   Font Faces
+   ============================================================ */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Serif';
+  src: url('/fonts/noto-serif/NotoSerif-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Serif';
+  src: url('/fonts/noto-serif/NotoSerif-Italic-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  src: url('/fonts/source-code-pro/SourceCodePro-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  src: url('/fonts/source-code-pro/SourceCodePro-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ============================================================
+   Design Tokens  (Tailwind v4 @theme)
+   ============================================================ */
+
+@theme {
+  /* --- Font families --- */
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Noto Serif', serif;
+  --font-mono: 'Source Code Pro', monospace;
+
+  /* --- Neutral palette --- */
+  --color-neutral-950: #0E121B;
+  --color-neutral-900: #191B25;
+  --color-neutral-800: #232530;
+  --color-neutral-700: #2B303B;
+  --color-neutral-600: #525866;
+  --color-neutral-500: #717784;
+  --color-neutral-400: #99A0AE;
+  --color-neutral-300: #CACFD8;
+  --color-neutral-200: #E0E4EA;
+  --color-neutral-100: #F3F5F8;
+  --color-neutral-50: #F5F7FA;
+  --color-neutral-0: #FFFFFF;
+
+  /* --- Blue palette --- */
+  --color-blue-700: #2547D0;
+  --color-blue-500: #335CFF;
+  --color-blue-50: #EBF1FF;
+
+  /* --- Green palette --- */
+  --color-green-500: #21C16B;
+  --color-green-100: #D1FBE9;
+
+  /* --- Red palette --- */
+  --color-red-500: #FB3748;
+  --color-red-100: #FFD5D8;
+
+  /* --- Border radius --- */
+  --radius-sm:  0.25rem;  /* 4px  */
+  --radius-md:  0.5rem;   /* 8px  */
+  --radius-lg:  0.75rem;  /* 12px */
+  --radius-xl:  1rem;     /* 16px */
+  --radius-2xl: 1.25rem;  /* 20px */
+  --radius-3xl: 1.5rem;   /* 24px */
+  --radius-full: 9999px;
+
+  /* --- Shadows (light mode — #F0F0F0 tinted) --- */
+  --shadow-sm: 0 4px 6px 0 rgb(240 240 240 / 0.6);
+  --shadow-md: 0 8px 12px 0 rgb(240 240 240 / 0.6);
+}
+
+/* ============================================================
+   Font-theme switching
+   Applied to <html data-font-theme="…">
+   ============================================================ */
+
+:root {
+  --font-body: 'Inter', sans-serif;
+}
+
+[data-font-theme='serif'] {
+  --font-body: 'Noto Serif', serif;
+}
+
+[data-font-theme='mono'] {
+  --font-body: 'Source Code Pro', monospace;
+}
+
+/* ============================================================
+   Base styles
+   ============================================================ */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-neutral-0);
+    color: var(--color-neutral-950);
+    min-height: 100dvh;
+  }
+
+  /* Dark theme */
+  [data-theme='dark'] body {
+    background-color: var(--color-neutral-950);
+    color: var(--color-neutral-100);
+  }
+}
+
+/* ============================================================
+   Typography utilities  (text-preset-1 … text-preset-6)
+   Same size/weight scale for all three font themes —
+   only the font-family changes via --font-body.
+   ============================================================ */
+
+@layer utilities {
+  /* 24px · Bold · -0.5px */
+  .text-preset-1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.031rem;
+  }
+
+  /* 20px · Bold · -0.5px */
+  .text-preset-2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.031rem;
+  }
+
+  /* 16px · SemiBold · -0.3px */
+  .text-preset-3 {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.019rem;
+  }
+
+  /* 14px · Medium · -0.2px */
+  .text-preset-4 {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.013rem;
+  }
+
+  /* 14px · Regular · -0.2px */
+  .text-preset-5 {
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.013rem;
+  }
+
+  /* 12px · Regular · -0.2px */
+  .text-preset-6 {
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.013rem;
+  }
+}
