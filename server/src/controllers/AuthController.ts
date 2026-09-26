@@ -52,6 +52,11 @@ export default class AuthController extends Controller {
     return res.status(HTTP_STATUS.OK).json({ message: 'Logged out' });
   }
 
+  static async me(req: Request, res: Response): Promise<Response> {
+    const user = await AuthService.me(req.userId!);
+    return res.status(HTTP_STATUS.OK).json(user);
+  }
+
   static async forgotPassword(req: Request, res: Response): Promise<Response> {
     const body = Controller.getValidatedBody<ForgotPasswordBody>(req);
     await AuthService.forgotPassword(body);

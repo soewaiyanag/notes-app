@@ -63,6 +63,11 @@ export default class AuthService {
     await TokenService.revoke(token);
   }
 
+  static async me(userId: number): Promise<{ id: number; email: string }> {
+    const user = await prisma.user.findUniqueOrThrow({ where: { id: userId } });
+    return { id: user.id, email: user.email };
+  }
+
   // Always resolves without revealing whether the email is registered.
   static async forgotPassword({ email }: ForgotPasswordBody): Promise<void> {
     const user = await prisma.user.findUnique({ where: { email } });

@@ -10,6 +10,7 @@ router.post('/register', validateRequest(authSchemas.register), AuthController.r
 router.post('/login', validateRequest(authSchemas.login), AuthController.login);
 router.post('/refresh', AuthController.refresh);
 router.post('/logout', AuthController.logout);
+router.get('/me', authenticate, AuthController.me);
 router.post('/forgot-password', validateRequest(authSchemas.forgotPassword), AuthController.forgotPassword);
 router.post('/reset-password', validateRequest(authSchemas.resetPassword), AuthController.resetPassword);
 router.patch(
