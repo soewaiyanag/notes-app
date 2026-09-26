@@ -9,7 +9,7 @@ export default class NoteService {
     return prisma.note.findMany({
       where: {
         userId,
-        isArchived: archived === 'true',
+        ...(archived !== undefined ? { isArchived: archived === 'true' } : {}),
         ...(tag ? { tags: { some: { name: tag } } } : {}),
         ...(q
           ? {

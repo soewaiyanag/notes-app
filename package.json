@@ -12,6 +12,7 @@
     "build": "yarn workspace client build && yarn workspace server build"
   },
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.1.2",
+    "vite": "^7.3.1"
   }
 }

@@ -3,7 +3,12 @@ import Controller from '../classes/Controller';
 import AuthService from '../services/AuthService';
 import { UnauthorizedException } from '../exceptions/UnauthorizedException';
 import { HTTP_STATUS } from '../constants/httpStatus';
-import type { LoginBody } from '../schemas/auth.schema';
+import type {
+  LoginBody,
+  ForgotPasswordBody,
+  ResetPasswordBody,
+  ChangePasswordBody,
+} from '../schemas/auth.schema';
 
 const COOKIE_OPTIONS: CookieOptions = {
   httpOnly: true,
@@ -45,5 +50,28 @@ export default class AuthController extends Controller {
 
     res.clearCookie('refreshToken');
     return res.status(HTTP_STATUS.OK).json({ message: 'Logged out' });
+  }
+
+  static async me(req: Request, res: Response): Promise<Response> {
+    const user = await AuthService.me(req.userId!);
+    return res.status(HTTP_STATUS.OK).json(user);
+  }
+
+  static async forgotPassword(req: Request, res: Response): Promise<Response> {
+    const body = Controller.getValidatedBody<ForgotPasswordBody>(req);
+    await AuthService.forgotPassword(body);
+    return res.status(HTTP_STATUS.OK).json({ message: 'If that email exists, a reset link has been sent' });
+  }
+
+  static async resetPassword(req: Request, res: Response): Promise<Response> {
+    const body = Controller.getValidatedBody<ResetPasswordBody>(req);
+    await AuthService.resetPassword(body);
+    return res.status(HTTP_STATUS.OK).json({ message: 'Password has been reset' });
+  }
+
+  static async changePassword(req: Request, res: Response): Promise<Response> {
+    const body = Controller.getValidatedBody<ChangePasswordBody>(req);
+    await AuthService.changePassword(req.userId!, body);
+    return res.status(HTTP_STATUS.OK).json({ message: 'Password changed' });
   }
 }
