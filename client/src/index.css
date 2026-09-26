@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Drive Tailwind's `dark:` variant off data-theme instead of prefers-color-scheme,
+   since theme is a user preference (light/dark/system) resolved in JS, not the OS. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* ============================================================
    Font Faces
    ============================================================ */
@@ -61,6 +65,7 @@
   --font-sans: 'Inter', sans-serif;
   --font-serif: 'Noto Serif', serif;
   --font-mono: 'Source Code Pro', monospace;
+  --font-pacifico: 'Pacifico', cursive;
 
   /* --- Neutral palette --- */
   --color-neutral-950: #0E121B;
